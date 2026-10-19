@@ -220,9 +220,9 @@ export default function TasksPage() {
     : QUICK_QUEUE_PILLARS;
 
   return (
-    <div className="h-full w-full flex-1 min-h-0 grid grid-cols-12 gap-3 overflow-hidden select-none">
+    <div className="w-full flex-1 min-h-0 flex flex-col md:grid md:grid-cols-12 gap-3 overflow-y-auto md:overflow-hidden select-text md:select-none">
       {/* ── LEFT 8 COLUMNS: Engineering Sprint Engine ────────────────────────── */}
-      <div className="col-span-8 flex flex-col gap-2 min-h-0 h-full">
+      <div className="col-span-12 md:col-span-8 flex flex-col gap-2 shrink-0 md:min-h-0 md:h-full">
         {/* Compact Combined Header Bar */}
         <div className="bg-slate-900/90 backdrop-blur-md border border-slate-800/80 rounded-xl p-2.5 shrink-0 flex flex-col gap-2 shadow-sm">
           {/* Top row: Target Day Switch + 5 Pillar Quick Queue chips */}
@@ -266,50 +266,52 @@ export default function TasksPage() {
           </div>
 
           {/* Bottom row: Custom Task Adder */}
-          <form onSubmit={handleAddCustomTask} className="flex items-center gap-1.5">
+          <form onSubmit={handleAddCustomTask} className="flex flex-wrap sm:flex-nowrap items-center gap-1.5">
             <input
               type="text"
               value={customText}
               onChange={(e) => setCustomText(e.target.value)}
               placeholder={`Add sprint for ${targetDay}…`}
-              className="flex-1 bg-slate-950 border border-slate-800 focus:border-cyan-500/60 text-slate-200 placeholder-slate-600 text-xs rounded-lg px-2.5 py-1 focus:outline-none font-mono"
+              className="flex-1 min-w-[160px] bg-slate-950 border border-slate-800 focus:border-cyan-500/60 text-slate-200 placeholder-slate-600 text-xs rounded-lg px-2.5 py-1.5 focus:outline-none font-mono"
             />
-            <select
-              value={customCategory}
-              onChange={(e) => setCustomCategory(e.target.value)}
-              className="bg-slate-950 border border-slate-800 text-slate-300 text-[10px] font-mono rounded-lg px-2 py-1 focus:outline-none"
-            >
-              <option value="devops">DevOps</option>
-              <option value="startup">Startup</option>
-              <option value="internship">Internship</option>
-              <option value="btech">B.Tech</option>
-              <option value="general">General</option>
-            </select>
-            <select
-              value={customSprints}
-              onChange={(e) => setCustomSprints(Number(e.target.value))}
-              className="bg-slate-950 border border-slate-800 text-amber-300 text-[10px] font-mono rounded-lg px-2 py-1 focus:outline-none"
-            >
-              <option value={1}>1 Sp (45m)</option>
-              <option value={2}>2 Sp (1.5h)</option>
-              <option value={3}>3 Sp (2.25h)</option>
-              <option value={4}>4 Sp (3h)</option>
-            </select>
-            <button
-              type="submit"
-              disabled={!customText.trim()}
-              className="px-3 py-1 rounded-lg bg-cyan-500 hover:bg-cyan-400 disabled:opacity-30 text-slate-950 font-mono font-bold text-xs transition-all shrink-0 flex items-center gap-1"
-            >
-              <Plus size={12} strokeWidth={3} />
-              <span>Add</span>
-            </button>
+            <div className="flex items-center gap-1.5 w-full sm:w-auto">
+              <select
+                value={customCategory}
+                onChange={(e) => setCustomCategory(e.target.value)}
+                className="flex-1 sm:flex-none bg-slate-950 border border-slate-800 text-slate-300 text-[10px] font-mono rounded-lg px-2 py-1.5 focus:outline-none"
+              >
+                <option value="devops">DevOps</option>
+                <option value="startup">Startup</option>
+                <option value="internship">Internship</option>
+                <option value="btech">B.Tech</option>
+                <option value="general">General</option>
+              </select>
+              <select
+                value={customSprints}
+                onChange={(e) => setCustomSprints(Number(e.target.value))}
+                className="flex-1 sm:flex-none bg-slate-950 border border-slate-800 text-amber-300 text-[10px] font-mono rounded-lg px-2 py-1.5 focus:outline-none"
+              >
+                <option value={1}>1 Sp (45m)</option>
+                <option value={2}>2 Sp (1.5h)</option>
+                <option value={3}>3 Sp (2.25h)</option>
+                <option value={4}>4 Sp (3h)</option>
+              </select>
+              <button
+                type="submit"
+                disabled={!customText.trim()}
+                className="px-3 py-1.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 disabled:opacity-30 text-slate-950 font-mono font-bold text-xs transition-all shrink-0 flex items-center gap-1"
+              >
+                <Plus size={12} strokeWidth={3} />
+                <span>Add</span>
+              </button>
+            </div>
           </form>
         </div>
 
         {/* 3-Column Equal-Height Board */}
-        <div className="grid grid-cols-3 gap-2.5 flex-1 min-h-0">
+        <div className="flex flex-col md:grid md:grid-cols-3 gap-2.5 flex-1 min-h-0">
           {/* Column 1: QUEUE (TODAY) */}
-          <div className="flex flex-col min-h-0 bg-slate-900/60 border border-slate-800/80 rounded-xl p-2.5 shadow-sm">
+          <div className="flex flex-col min-h-[220px] md:min-h-0 bg-slate-900/60 border border-slate-800/80 rounded-xl p-2.5 shadow-sm">
             <div className="flex items-center justify-between pb-2 border-b border-slate-800/80 shrink-0">
               <div className="flex items-center gap-1.5">
                 <span className="w-2 h-2 rounded-full bg-cyan-400" />
@@ -394,7 +396,7 @@ export default function TasksPage() {
           </div>
 
           {/* Column 2: QUEUE (TOMORROW) */}
-          <div className="flex flex-col min-h-0 bg-slate-900/60 border border-slate-800/80 rounded-xl p-2.5 shadow-sm">
+          <div className="flex flex-col min-h-[220px] md:min-h-0 bg-slate-900/60 border border-slate-800/80 rounded-xl p-2.5 shadow-sm">
             <div className="flex items-center justify-between pb-2 border-b border-slate-800/80 shrink-0">
               <div className="flex items-center gap-1.5">
                 <span className="w-2 h-2 rounded-full bg-amber-400" />
@@ -449,7 +451,7 @@ export default function TasksPage() {
           </div>
 
           {/* Column 3: COMPLETED (TODAY) */}
-          <div className="flex flex-col min-h-0 bg-slate-900/60 border border-slate-800/80 rounded-xl p-2.5 shadow-sm">
+          <div className="flex flex-col min-h-[220px] md:min-h-0 bg-slate-900/60 border border-slate-800/80 rounded-xl p-2.5 shadow-sm">
             <div className="flex items-center justify-between pb-2 border-b border-slate-800/80 shrink-0">
               <div className="flex items-center gap-1.5">
                 <span className="w-2 h-2 rounded-full bg-emerald-400" />
@@ -500,9 +502,9 @@ export default function TasksPage() {
       </div>
 
       {/* ── RIGHT 4 COLUMNS: Life Chores + Commute Learning Queue ────────────── */}
-      <div className="col-span-4 flex flex-col gap-2.5 min-h-0 h-full">
+      <div className="col-span-12 md:col-span-4 flex flex-col gap-2.5 shrink-0 md:min-h-0 md:h-full">
         {/* Top Card: Life & Admin Inbox */}
-        <div className="flex-1 min-h-0 bg-slate-900/90 backdrop-blur-md border border-slate-800/80 rounded-xl p-2.5 flex flex-col shadow-sm">
+        <div className="flex-1 min-h-[260px] md:min-h-0 bg-slate-900/90 backdrop-blur-md border border-slate-800/80 rounded-xl p-2.5 flex flex-col shadow-sm">
           <div className="flex items-center justify-between pb-1.5 border-b border-slate-800/80 shrink-0">
             <div className="flex items-center gap-1.5">
               <div className="p-1 rounded bg-orange-500/10 border border-orange-500/30 text-orange-400">
@@ -597,7 +599,7 @@ export default function TasksPage() {
         </div>
 
         {/* Bottom Card: 20km Commute Learning Queue */}
-        <div className="flex-1 min-h-0 bg-slate-900/90 backdrop-blur-md border border-slate-800/80 rounded-xl p-2.5 flex flex-col shadow-sm">
+        <div className="flex-1 min-h-[260px] md:min-h-0 bg-slate-900/90 backdrop-blur-md border border-slate-800/80 rounded-xl p-2.5 flex flex-col shadow-sm">
           <div className="flex items-center justify-between pb-1.5 border-b border-slate-800/80 shrink-0">
             <div className="flex items-center gap-1.5">
               <div className="p-1 rounded bg-indigo-500/10 border border-indigo-500/30 text-indigo-400">
@@ -623,13 +625,13 @@ export default function TasksPage() {
           </div>
 
           {/* Quick Commute Adder */}
-          <form onSubmit={handleAddCommute} className="flex gap-1 py-1.5 border-b border-slate-800/80 shrink-0">
+          <form onSubmit={handleAddCommute} className="flex flex-wrap sm:flex-nowrap gap-1 py-1.5 border-b border-slate-800/80 shrink-0">
             <input
               type="text"
               value={commuteTitle}
               onChange={(e) => setCommuteTitle(e.target.value)}
               placeholder="Deep-dive / podcast title…"
-              className="flex-1 bg-slate-950 border border-slate-800 focus:border-indigo-500/60 text-slate-200 placeholder-slate-600 text-[11px] rounded px-2 py-1 focus:outline-none font-mono"
+              className="flex-1 min-w-[140px] bg-slate-950 border border-slate-800 focus:border-indigo-500/60 text-slate-200 placeholder-slate-600 text-[11px] rounded px-2 py-1 focus:outline-none font-mono"
             />
             <input
               type="text"

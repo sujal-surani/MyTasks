@@ -203,9 +203,9 @@ export default function DiaryPage() {
   };
 
   return (
-    <div className="h-full w-full flex-1 min-h-0 grid grid-cols-12 gap-3 overflow-hidden select-none">
+    <div className="w-full flex-1 min-h-0 flex flex-col md:grid md:grid-cols-12 gap-3 overflow-y-auto md:overflow-hidden select-text md:select-none">
       {/* ── LEFT COLUMN (4 cols): Date Navigator & Day Insights ── */}
-      <div className="col-span-4 flex flex-col p-3 min-h-0 bg-slate-900/90 backdrop-blur-md border border-slate-800 rounded-xl shadow-sm gap-2.5 overflow-hidden">
+      <div className="col-span-12 md:col-span-4 flex flex-col p-3 shrink-0 md:min-h-0 min-h-[380px] md:h-full bg-slate-900/90 backdrop-blur-md border border-slate-800 rounded-xl shadow-sm gap-2.5 overflow-hidden">
         {/* Header */}
         <div className="flex items-center justify-between pb-2 border-b border-slate-800/80 shrink-0">
           <div className="flex items-center gap-1.5">
@@ -374,9 +374,9 @@ export default function DiaryPage() {
       </div>
 
       {/* ── RIGHT COLUMN (8 cols): Interactive Journal Editor ── */}
-      <div className="col-span-8 flex flex-col p-3 min-h-0 bg-slate-900/90 backdrop-blur-md border border-slate-800 rounded-xl shadow-sm gap-2.5 overflow-hidden">
+      <div className="col-span-12 md:col-span-8 flex flex-col p-3 shrink-0 md:min-h-0 min-h-[500px] md:h-full bg-slate-900/90 backdrop-blur-md border border-slate-800 rounded-xl shadow-sm gap-2.5 overflow-hidden">
         {/* Top Header: Title, Mood Selector Pills, & Save Button */}
-        <div className="flex items-center justify-between pb-2 border-b border-slate-800/80 shrink-0 gap-3">
+        <div className="flex items-center justify-between pb-2 border-b border-slate-800/80 shrink-0 gap-2 flex-wrap">
           <div className="flex items-center gap-2 min-w-0">
             <div className="p-1 rounded bg-amber-500/10 border border-amber-500/30 text-amber-400 shrink-0">
               <BookOpen size={14} />
@@ -392,7 +392,7 @@ export default function DiaryPage() {
           </div>
 
           {/* Mood Selector Pills */}
-          <div className="flex items-center gap-1 shrink-0">
+          <div className="flex items-center gap-1 shrink-0 flex-wrap">
             {MOODS.map((m) => {
               const Icon = m.icon;
               const isSelected = mood === m.id;
@@ -427,9 +427,9 @@ export default function DiaryPage() {
         </div>
 
         {/* 3 Structured Sections (Zero Scroll - Each gets proportional vertical space) */}
-        <div className="flex-1 min-h-0 grid grid-rows-3 gap-2.5 overflow-hidden">
+        <div className="flex-1 min-h-0 flex flex-col md:grid md:grid-rows-3 gap-2.5 overflow-y-auto md:overflow-hidden">
           {/* Section 1: Today's Narrative & Life Notes */}
-          <div className="flex flex-col min-h-0 bg-slate-950/60 border border-slate-800/80 rounded-xl p-2.5">
+          <div className="flex flex-col min-h-[140px] md:min-h-0 bg-slate-950/60 border border-slate-800/80 rounded-xl p-2.5">
             <div className="flex items-center justify-between pb-1 shrink-0">
               <label className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300 flex items-center gap-1.5">
                 <Sparkles size={11} className="text-amber-400" />
@@ -459,7 +459,7 @@ export default function DiaryPage() {
           </div>
 
           {/* Section 2: Key Technical Wins */}
-          <div className="flex flex-col min-h-0 bg-slate-950/60 border border-slate-800/80 rounded-xl p-2.5">
+          <div className="flex flex-col min-h-[140px] md:min-h-0 bg-slate-950/60 border border-slate-800/80 rounded-xl p-2.5">
             <div className="flex items-center justify-between pb-1 shrink-0">
               <label className="text-[10px] font-mono font-bold uppercase tracking-wider text-emerald-300 flex items-center gap-1.5">
                 <CheckCircle2 size={11} className="text-emerald-400" />
@@ -489,7 +489,7 @@ export default function DiaryPage() {
           </div>
 
           {/* Section 3: Tomorrow's Intentions & Mindset */}
-          <div className="flex flex-col min-h-0 bg-slate-950/60 border border-slate-800/80 rounded-xl p-2.5">
+          <div className="flex flex-col min-h-[160px] md:min-h-0 bg-slate-950/60 border border-slate-800/80 rounded-xl p-2.5">
             <div className="flex items-center justify-between pb-1 shrink-0">
               <label className="text-[10px] font-mono font-bold uppercase tracking-wider text-cyan-300 flex items-center gap-1.5">
                 <TrendingUp size={11} className="text-cyan-400" />

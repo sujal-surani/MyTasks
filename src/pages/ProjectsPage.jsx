@@ -227,7 +227,7 @@ export default function ProjectsPage() {
   const agendaList = Array.isArray(startupState.agenda) ? startupState.agenda : [];
 
   return (
-    <div className="h-full w-full flex-1 min-h-0 flex flex-col gap-2 overflow-hidden select-none">
+    <div className="w-full flex-1 min-h-0 flex flex-col gap-2 overflow-y-auto md:overflow-hidden select-text md:select-none">
       {/* ── Top Tab Switcher ── */}
       <div className="h-9 shrink-0 flex items-center justify-between bg-slate-900/90 border border-slate-800 rounded-xl px-2.5 shadow-sm">
         <div className="flex items-center gap-1.5">
@@ -271,7 +271,7 @@ export default function ProjectsPage() {
         />
       ) : (
         /* ── Deep-Tech Startup R&D View (Zero-Scroll 12-col grid) ── */
-        <div className="flex-1 min-h-0 flex flex-col gap-2 overflow-hidden">
+        <div className="flex-1 min-h-0 flex flex-col gap-2 overflow-y-auto md:overflow-hidden">
           {/* Top Banner (Compact) */}
           <div className="shrink-0 py-1.5 px-3 bg-gradient-to-r from-violet-950/40 via-slate-900 to-slate-900 border border-violet-500/30 rounded-xl flex items-center justify-between shadow-sm">
             <div className="flex items-center gap-2">
@@ -293,9 +293,9 @@ export default function ProjectsPage() {
           </div>
 
           {/* 12-Column Split: 6 cols Milestones | 6 cols Agenda + Scratchpad */}
-          <div className="grid grid-cols-12 gap-3 flex-1 min-h-0 overflow-hidden">
+          <div className="flex flex-col md:grid md:grid-cols-12 gap-3 flex-1 min-h-0 md:overflow-hidden">
             {/* Left 6 cols: Architecture & Kernel Milestones */}
-            <div className="col-span-6 flex flex-col p-3 min-h-0 bg-slate-900/90 backdrop-blur-md border border-slate-800 rounded-xl shadow-sm">
+            <div className="col-span-12 md:col-span-6 flex flex-col p-3 shrink-0 md:min-h-0 min-h-[360px] md:h-full bg-slate-900/90 backdrop-blur-md border border-slate-800 rounded-xl shadow-sm">
               <div className="flex items-center justify-between pb-1.5 border-b border-slate-800 shrink-0">
                 <span className="text-[11px] font-bold font-mono uppercase tracking-wider text-slate-300">
                   Architecture & Kernel Milestones ({milestonesList.length})
@@ -394,9 +394,9 @@ export default function ProjectsPage() {
             </div>
 
             {/* Right 6 cols: Top half Co-founder Sync Agenda, Bottom half Scratchpad */}
-            <div className="col-span-6 flex flex-col gap-2.5 min-h-0 h-full">
+            <div className="col-span-12 md:col-span-6 flex flex-col gap-2.5 shrink-0 md:min-h-0 md:h-full">
               {/* Top half: Co-Founder Sync Agenda */}
-              <div className="flex-1 min-h-0 bg-slate-900/90 backdrop-blur-md border border-slate-800 rounded-xl p-2.5 flex flex-col shadow-sm">
+              <div className="flex-1 min-h-[220px] md:min-h-0 bg-slate-900/90 backdrop-blur-md border border-slate-800 rounded-xl p-2.5 flex flex-col shadow-sm">
                 <div className="flex items-center justify-between pb-1.5 border-b border-slate-800 shrink-0">
                   <span className="text-[11px] font-bold font-mono uppercase tracking-wider text-slate-300">
                     Co-Founder Sync Agenda ({agendaList.length})
@@ -454,7 +454,7 @@ export default function ProjectsPage() {
               </div>
 
               {/* Bottom half: Research Scratchpad */}
-              <div className="flex-1 min-h-0 bg-slate-900/90 backdrop-blur-md border border-slate-800 rounded-xl p-2.5 flex flex-col shadow-sm">
+              <div className="flex-1 min-h-[220px] md:min-h-0 bg-slate-900/90 backdrop-blur-md border border-slate-800 rounded-xl p-2.5 flex flex-col shadow-sm">
                 <div className="flex items-center justify-between pb-1.5 border-b border-slate-800 shrink-0">
                   <div className="flex items-center gap-1.5">
                     <span className="text-[11px] font-bold font-mono uppercase tracking-wider text-slate-300">

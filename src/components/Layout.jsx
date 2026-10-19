@@ -25,7 +25,9 @@ import {
   CheckCircle2,
   AlertTriangle,
   Coffee,
-  BookMarked
+  BookMarked,
+  Menu,
+  X
 } from "lucide-react";
 import { twMerge } from "tailwind-merge";
 import { useFirestoreContext } from "../context/FirestoreContext";
@@ -40,13 +42,13 @@ import ZenModeModal from "./ZenModeModal";
 
 // ─── 7 Dedicated Navigation Routes ───────────────────────────────────────────
 const NAV_ITEMS = [
-  { to: "/",            icon: LayoutDashboard, label: "Dashboard",   shortcut: "1", end: true  },
-  { to: "/tasks",       icon: CheckSquare,     label: "Tasks",       shortcut: "2", end: false },
-  { to: "/internships", icon: Briefcase,       label: "Internships", shortcut: "3", end: false },
-  { to: "/projects",    icon: FolderKanban,    label: "Projects",    shortcut: "4", end: false },
-  { to: "/academics",   icon: GraduationCap,   label: "Academics",   shortcut: "5", end: false },
-  { to: "/analytics",   icon: BarChart2,       label: "Analytics",   shortcut: "6", end: false },
-  { to: "/diary",       icon: BookMarked,      label: "Daily Diary", shortcut: "7", end: false },
+  { to: "/",            icon: LayoutDashboard, label: "Dashboard",   mobileLabel: "Dash",   shortcut: "1", end: true  },
+  { to: "/tasks",       icon: CheckSquare,     label: "Tasks",       mobileLabel: "Tasks",  shortcut: "2", end: false },
+  { to: "/internships", icon: Briefcase,       label: "Internships", mobileLabel: "Intern", shortcut: "3", end: false },
+  { to: "/projects",    icon: FolderKanban,    label: "Projects",    mobileLabel: "Proj",   shortcut: "4", end: false },
+  { to: "/academics",   icon: GraduationCap,   label: "Academics",   mobileLabel: "Study",  shortcut: "5", end: false },
+  { to: "/analytics",   icon: BarChart2,       label: "Analytics",   mobileLabel: "Stats",  shortcut: "6", end: false },
+  { to: "/diary",       icon: BookMarked,      label: "Daily Diary", mobileLabel: "Diary",  shortcut: "7", end: false },
 ];
 
 const ROUTE_TITLES = {
@@ -89,6 +91,11 @@ export default function Layout({ onLock }) {
   const [isManualWorkOpen, setIsManualWorkOpen] = useState(false);
   const [isErrandOpen, setIsErrandOpen] = useState(false);
   const [isZenOpen, setIsZenOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [location.pathname]);
 
   const isExamMode = Boolean(data.globalState?.isExamModeActive);
   const isTimerRunning = Boolean(data.timerState?.isRunning);
@@ -342,7 +349,7 @@ export default function Layout({ onLock }) {
   };
 
   return (
-    <div className="h-screen w-screen overflow-hidden flex bg-slate-950 text-slate-100 select-none font-sans">
+    <div className="h-screen w-screen overflow-hidden flex flex-col md:flex-row bg-slate-950 text-slate-100 md:select-none font-sans">
       {/* ── Global Modals & Drawers ────────────────────────────────────────── */}
       <QuickCaptureDrawer
         isOpen={isQuickCaptureOpen}
@@ -418,8 +425,131 @@ export default function Layout({ onLock }) {
         activeTask={activeTask}
       />
 
-      {/* ── Left Sidebar (w-52 high density) ─────────────────────────────────── */}
-      <aside className="w-52 shrink-0 bg-slate-900/95 border-r border-slate-800/80 h-screen flex flex-col justify-between z-40">
+      {/* ── Mobile Slide-Over Navigation Drawer (md:hidden) ───────────────────── */}
+      {isMobileMenuOpen && (
+        <div className="fixed inset-0 z-50 md:hidden flex animate-fade-in">
+          {/* Backdrop */}
+          <div
+            className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm"
+            onClick={() => setIsMobileMenuOpen(false)}
+          />
+
+          {/* Drawer Content */}
+          <div className="relative w-72 max-w-[85vw] bg-slate-900 border-r border-slate-800 h-full flex flex-col justify-between z-10 shadow-2xl">
+            <div className="flex flex-col min-h-0">
+              {/* Header */}
+              <div className="flex items-center justify-between px-3.5 py-3 border-b border-slate-800/80 shrink-0">
+                <div className="flex items-center gap-2">
+                  <div
+                    className={twMerge(
+                      "p-1.5 border rounded-lg",
+                      isExamMode
+                        ? "bg-amber-500/20 border-amber-500/40 text-amber-400"
+                        : "bg-cyan-500/10 border-cyan-500/30 text-cyan-400"
+                    )}
+                  >
+                    <Terminal size={16} />
+                  </div>
+                  <div>
+                    <span className="text-sm font-black tracking-tight text-white font-mono block">
+                      CMD_CENTER
+                    </span>
+                    <p className="text-[10px] text-slate-400 font-mono">
+                      OS v11.0 {isExamMode && "· EXAM MODE"}
+                    </p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+                >
+                  <X size={18} />
+                </button>
+              </div>
+
+              {/* Exam Mode Toggle */}
+              <div className="p-3 border-b border-slate-800/60 shrink-0">
+                <button
+                  onClick={toggleExamMode}
+                  className={twMerge(
+                    "w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-mono font-bold border transition-all",
+                    isExamMode
+                      ? "bg-amber-500/20 border-amber-500/60 text-amber-300 shadow-[0_0_10px_rgba(245,158,11,0.2)]"
+                      : "bg-slate-800/60 border-slate-700/60 text-slate-300 hover:text-amber-400"
+                  )}
+                >
+                  <span className="flex items-center gap-2">
+                    <ShieldAlert size={14} className={isExamMode ? "text-amber-400" : "text-slate-400"} />
+                    <span>{isExamMode ? "EXAM TRIAGE ACTIVE" : "Exam Triage Mode"}</span>
+                  </span>
+                  <span
+                    className={twMerge(
+                      "w-2 h-2 rounded-full",
+                      isExamMode ? "bg-amber-400 animate-ping" : "bg-slate-600"
+                    )}
+                  />
+                </button>
+              </div>
+
+              {/* Navigation Links */}
+              <nav className="flex flex-col gap-1 p-2.5 overflow-y-auto custom-scrollbar">
+                {NAV_ITEMS.map(({ to, icon: Icon, label, end }) => (
+                  <NavLink
+                    key={to}
+                    to={to}
+                    end={end}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={({ isActive }) =>
+                      twMerge(
+                        "flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-mono font-bold transition-all",
+                        isActive
+                          ? isExamMode
+                            ? "bg-amber-500/20 text-amber-300 border border-amber-500/40"
+                            : "bg-cyan-500/15 text-cyan-300 border border-cyan-500/30"
+                          : "text-slate-300 hover:text-white hover:bg-slate-800/60"
+                      )
+                    }
+                  >
+                    <Icon size={16} className="shrink-0" />
+                    <span>{label}</span>
+                  </NavLink>
+                ))}
+              </nav>
+            </div>
+
+            {/* Drawer Footer */}
+            <div className="p-3 border-t border-slate-800 bg-slate-950/60 flex flex-col gap-2 shrink-0">
+              <button
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  setIsQuickCaptureOpen(true);
+                }}
+                className="w-full py-2 px-3 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 text-xs font-mono font-bold flex items-center justify-center gap-2"
+              >
+                <Brain size={14} />
+                <span>Quick Capture ({(data.brainDump || []).length} held)</span>
+              </button>
+
+              <div className="flex items-center justify-between text-[10px] font-mono pt-1 text-slate-400">
+                <div className="flex items-center gap-1.5">
+                  {isFirebaseConfigured ? <Wifi size={12} className="text-emerald-400" /> : <WifiOff size={12} className="text-amber-400" />}
+                  <span>{isFirebaseConfigured ? "CLOUD SYNCED" : "LOCAL CACHE"}</span>
+                </div>
+                <button
+                  onClick={onLock}
+                  className="flex items-center gap-1 text-slate-500 hover:text-red-400 p-1"
+                >
+                  <LogOut size={12} />
+                  <span>Lock</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── Left Sidebar (Desktop Only: hidden on mobile, w-52 high density) ──── */}
+      <aside className="hidden md:flex w-52 shrink-0 bg-slate-900/95 border-r border-slate-800/80 h-screen flex-col justify-between z-40">
         <div className="flex flex-col min-h-0">
           {/* Logo & Header */}
           <div className="flex items-center gap-2 px-3 py-2.5 border-b border-slate-800/60 shrink-0">
@@ -474,7 +604,7 @@ export default function Layout({ onLock }) {
             </button>
           </div>
 
-          {/* 6 Nav Links with [1] - [6] shortcuts */}
+          {/* 7 Nav Links with [1] - [7] shortcuts */}
           <nav className="flex flex-col gap-0.5 px-2 py-2 overflow-y-auto custom-scrollbar">
             {NAV_ITEMS.map(({ to, icon: Icon, label, shortcut, end }) => (
               <NavLink
@@ -561,12 +691,20 @@ export default function Layout({ onLock }) {
         </div>
       </aside>
 
-      {/* ── Main Viewport Area (Zero Full-Page Scroll) ───────────────────────── */}
-      <div className="flex-1 h-screen overflow-hidden flex flex-col p-3 gap-2.5 max-w-none w-full">
-        {/* ── Ultra-Slim Top Command Bar (h-10 shrink-0 Across All Pages) ── */}
-        <header className="h-10 shrink-0 px-3 rounded-lg bg-slate-900/90 border border-slate-800 flex items-center justify-between gap-2.5 shadow-sm">
-          {/* Left: Route Title + Smart Autopilot Pill */}
-          <div className="flex items-center gap-2.5 min-w-0">
+      {/* ── Main Viewport Area (Scrollable on mobile, zero-scroll locked on laptop) ──── */}
+      <div className="flex-1 min-h-0 w-full flex flex-col overflow-y-auto md:overflow-hidden p-2.5 md:p-3 pb-20 md:pb-3 gap-2.5 max-w-none">
+        {/* ── Top Command Bar ── */}
+        <header className="h-11 md:h-10 shrink-0 px-2.5 md:px-3 rounded-lg bg-slate-900/90 border border-slate-800 flex items-center justify-between gap-2 shadow-sm">
+          {/* Left: Mobile Menu Toggle + Route Title + Autopilot Pill */}
+          <div className="flex items-center gap-2 min-w-0">
+            <button
+              onClick={() => setIsMobileMenuOpen(true)}
+              className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 md:hidden shrink-0 border border-slate-700/60 transition-all"
+              title="Open Navigation Menu"
+            >
+              <Menu size={15} />
+            </button>
+
             <h1 className="text-xs font-black font-mono tracking-tight text-white uppercase truncate">
               {currentRouteTitle}
             </h1>
@@ -574,10 +712,10 @@ export default function Layout({ onLock }) {
             {/* Smart Autopilot Pill */}
             <div className={twMerge("flex items-center gap-1.5 px-2 py-0.5 rounded-full border text-[10px] font-mono", autopilot.color)}>
               <Zap size={11} className="text-amber-400 shrink-0 animate-pulse" />
-              <span className="font-semibold truncate max-w-[200px]">{autopilot.label}</span>
+              <span className="font-semibold truncate max-w-[110px] sm:max-w-[200px]">{autopilot.label}</span>
               <button
                 onClick={autopilot.action}
-                className="ml-0.5 px-1.5 py-0.2 rounded bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-[9px] transition-all hover:scale-105 active:scale-95"
+                className="ml-0.5 px-1.5 py-0.2 rounded bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-[9px] transition-all hover:scale-105 active:scale-95 shrink-0"
               >
                 ⚡ Start
               </button>
@@ -585,13 +723,13 @@ export default function Layout({ onLock }) {
           </div>
 
           {/* Center & Right Badges */}
-          <div className="flex items-center gap-2 shrink-0">
+          <div className="flex items-center gap-1.5 md:gap-2 shrink-0">
             {/* Live Active Sprint Mini-Timer Badge */}
             {isTimerRunning ? (
               <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-lg bg-cyan-950/60 border border-cyan-500/40 text-[10px] font-mono text-cyan-300 shadow-[0_0_8px_rgba(6,182,212,0.2)]">
                 <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping" />
                 <span className="font-bold">{formatTime(data.timerState?.timeLeft)}</span>
-                <span className="text-slate-400 truncate max-w-[100px] hidden sm:inline">
+                <span className="text-slate-400 truncate max-w-[100px] hidden md:inline">
                   • {activeTask ? activeTask.text : "Sprint"}
                 </span>
                 <button
@@ -605,7 +743,8 @@ export default function Layout({ onLock }) {
             ) : isTimerPaused ? (
               <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-lg bg-amber-950/60 border border-amber-500/40 text-[10px] font-mono text-amber-300">
                 <Coffee size={10} />
-                <span>Paused (Errand)</span>
+                <span className="hidden sm:inline">Paused (Errand)</span>
+                <span className="sm:hidden">Paused</span>
                 <button
                   onClick={() => updateData({ "timerState.isRunning": true, "timerState.isPausedForErrand": false })}
                   title="Resume sprint"
@@ -616,41 +755,70 @@ export default function Layout({ onLock }) {
               </div>
             ) : null}
 
-            {/* Live Beta 10 PM Status Badge */}
+            {/* Mobile Quick Capture Trigger */}
+            <button
+              onClick={() => setIsQuickCaptureOpen(true)}
+              className="p-1 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300 hover:bg-amber-500/20 md:hidden transition-all"
+              title="Quick Capture (Alt+C)"
+            >
+              <Brain size={14} />
+            </button>
+
+            {/* Desktop Only Badges (Hidden on mobile to eliminate congestion) */}
             {isBetaSubmitted ? (
-              <span className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-lg bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 text-[10px] font-mono font-bold shadow-[0_0_10px_rgba(16,185,129,0.15)]">
+              <span className="hidden md:flex items-center gap-1.5 px-2.5 py-0.5 rounded-lg bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 text-[10px] font-mono font-bold shadow-[0_0_10px_rgba(16,185,129,0.15)]">
                 <CheckCircle2 size={11} className="text-emerald-400" />
                 <span>✅ Beta Submitted Today (Resets 12 AM)</span>
               </span>
             ) : (
-              <span className="flex items-center gap-1 px-2 py-0.5 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300 text-[10px] font-mono">
+              <span className="hidden md:flex items-center gap-1 px-2 py-0.5 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300 text-[10px] font-mono">
                 <Clock size={11} className="text-amber-400" />
                 <span>Beta: {betaTimeLeft}</span>
               </span>
             )}
 
-            {/* + Log Work (L) Button */}
             <button
               onClick={() => setIsManualWorkOpen(true)}
-              className="flex items-center gap-1 px-2 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700/60 text-slate-300 hover:text-white text-[10px] font-mono font-bold transition-all"
+              className="hidden md:flex items-center gap-1 px-2 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700/60 text-slate-300 hover:text-white text-[10px] font-mono font-bold transition-all"
             >
               <Clock size={11} />
               <span>+ Log (L)</span>
             </button>
 
-            {/* Live 11:55 PM Freeze Countdown Badge */}
-            <div className="flex items-center gap-1 px-2 py-0.5 rounded-lg bg-indigo-950/40 border border-indigo-500/30 text-indigo-300 text-[10px] font-mono">
+            <div className="hidden md:flex items-center gap-1 px-2 py-0.5 rounded-lg bg-indigo-950/40 border border-indigo-500/30 text-indigo-300 text-[10px] font-mono">
               <span>❄️ Freeze:</span>
               <strong className="text-white">{freezeTimeLeft}</strong>
             </div>
           </div>
         </header>
 
-        {/* ── Page Viewport Content (Strictly overflow-hidden) ── */}
-        <main className="flex-1 min-h-0 w-full overflow-hidden flex flex-col">
+        {/* ── Page Viewport Content ── */}
+        <main className="flex-1 min-h-0 w-full flex flex-col overflow-y-visible md:overflow-hidden">
           <Outlet />
         </main>
       </div>
+
+      {/* ── Mobile Bottom Navigation Bar (md:hidden) ── */}
+      <nav className="fixed bottom-0 left-0 right-0 h-14 bg-slate-900/95 backdrop-blur-md border-t border-slate-800/90 z-40 grid grid-cols-7 items-center px-1 md:hidden select-none">
+        {NAV_ITEMS.map(({ to, icon: Icon, mobileLabel, end }) => (
+          <NavLink
+            key={to}
+            to={to}
+            end={end}
+            className={({ isActive }) =>
+              twMerge(
+                "flex flex-col items-center justify-center py-1 rounded-lg text-[9px] font-mono transition-all",
+                isActive
+                  ? "text-cyan-400 font-bold bg-cyan-500/10"
+                  : "text-slate-400 hover:text-slate-200"
+              )
+            }
+          >
+            <Icon size={16} />
+            <span className="truncate max-w-[46px] leading-tight mt-0.5">{mobileLabel}</span>
+          </NavLink>
+        ))}
+      </nav>
     </div>
   );
 }

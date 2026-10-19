@@ -364,7 +364,7 @@ export default function AcademicsPage() {
   };
 
   return (
-    <div className="h-full w-full flex-1 min-h-0 flex flex-col gap-2 overflow-hidden select-none">
+    <div className="w-full flex-1 min-h-0 flex flex-col gap-2 overflow-y-auto md:overflow-hidden select-text md:select-none">
       {/* ── Top Alert Strip (Only if exam is within 7 days) ── */}
       {urgentExam && (
         <div className="shrink-0 py-1.5 px-3 bg-amber-950/50 border border-amber-500/40 rounded-xl flex items-center justify-between shadow-sm animate-pulse">
@@ -395,9 +395,9 @@ export default function AcademicsPage() {
       )}
 
       {/* ── 3-Column Equal-Height Grid (Zero Scroll at 100% Zoom) ── */}
-      <div className="grid grid-cols-12 gap-3 flex-1 min-h-0 overflow-hidden">
+      <div className="flex flex-col md:grid md:grid-cols-12 gap-3 flex-1 min-h-0 md:overflow-hidden">
         {/* ── COL 1 (4 cols): Exam Dates & Syllabus Units ── */}
-        <div className="col-span-4 flex flex-col p-3 min-h-0 bg-slate-900/90 backdrop-blur-md border border-slate-800 rounded-xl shadow-sm">
+        <div className="col-span-12 md:col-span-4 flex flex-col p-3 shrink-0 md:min-h-0 min-h-[380px] md:h-full bg-slate-900/90 backdrop-blur-md border border-slate-800 rounded-xl shadow-sm">
           <div className="flex items-center justify-between pb-1.5 border-b border-slate-800 shrink-0">
             <div className="flex items-center gap-1.5">
               <Calendar size={13} className="text-amber-400" />
@@ -525,7 +525,7 @@ export default function AcademicsPage() {
         </div>
 
         {/* ── COL 2 (4 cols): Sem 3 Subjects & Lab Clearances ── */}
-        <div className="col-span-4 flex flex-col p-3 min-h-0 bg-slate-900/90 backdrop-blur-md border border-slate-800 rounded-xl shadow-sm">
+        <div className="col-span-12 md:col-span-4 flex flex-col p-3 shrink-0 md:min-h-0 min-h-[380px] md:h-full bg-slate-900/90 backdrop-blur-md border border-slate-800 rounded-xl shadow-sm">
           <div className="flex items-center justify-between pb-1.5 border-b border-slate-800 shrink-0">
             <div className="flex items-center gap-1.5">
               <BookOpen size={13} className="text-cyan-400" />
@@ -624,7 +624,7 @@ export default function AcademicsPage() {
         </div>
 
         {/* ── COL 3 (4 cols): Cloud & DevOps Certifications ── */}
-        <div className="col-span-4 flex flex-col p-3 min-h-0 bg-slate-900/90 backdrop-blur-md border border-slate-800 rounded-xl shadow-sm">
+        <div className="col-span-12 md:col-span-4 flex flex-col p-3 shrink-0 md:min-h-0 min-h-[380px] md:h-full bg-slate-900/90 backdrop-blur-md border border-slate-800 rounded-xl shadow-sm">
           <div className="flex items-center justify-between pb-1.5 border-b border-slate-800 shrink-0">
             <div className="flex items-center gap-1.5">
               <Award size={13} className="text-purple-400" />

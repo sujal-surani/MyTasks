@@ -102,9 +102,9 @@ export default function SprintActivity({ sprintHistory = {}, onAdjustCount }) {
       </div>
 
       {/* Main 65% / 35% Split Container */}
-      <div className="flex-1 min-h-0 flex items-stretch gap-3 py-1.5 overflow-hidden">
+      <div className="flex-1 min-h-0 flex flex-col md:flex-row items-stretch gap-3 py-1.5 overflow-y-auto md:overflow-hidden">
         {/* Left 65%: 12-Week Heatmap Grid */}
-        <div className="w-[65%] min-w-0 flex flex-col justify-between pr-3 border-r border-slate-800/80 overflow-x-auto custom-scrollbar">
+        <div className="w-full md:w-[65%] min-w-0 flex flex-col justify-between pr-0 md:pr-3 border-b md:border-b-0 md:border-r border-slate-800/80 overflow-x-auto custom-scrollbar pb-2 md:pb-0">
           <div className="flex items-center justify-center my-auto">
             <div className="flex gap-1.5">
               {/* Day-of-week labels */}
@@ -171,7 +171,7 @@ export default function SprintActivity({ sprintHistory = {}, onAdjustCount }) {
         </div>
 
         {/* Right 35%: Velocity & Streak Breakdown (4 Stacked Stat Tiles) */}
-        <div className="w-[35%] min-w-0 flex flex-col justify-between pl-1">
+        <div className="w-full md:w-[35%] min-w-0 flex flex-col justify-between pl-0 md:pl-1 pt-2 md:pt-0">
           <div className="flex items-center justify-between pb-1 border-b border-slate-800/60 shrink-0">
             <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400">
               Velocity Breakdown

@@ -155,9 +155,9 @@ export default function AnalyticsPage() {
   };
 
   return (
-    <div className="h-full w-full flex-1 min-h-0 grid grid-cols-12 grid-rows-2 gap-3 overflow-hidden select-none">
+    <div className="w-full flex-1 min-h-0 flex flex-col md:grid md:grid-cols-12 md:grid-rows-2 gap-3 overflow-y-auto md:overflow-hidden select-text md:select-none">
       {/* ── TOP-LEFT (col-span-6, row-span-1): Sprint Activity Heatmap ── */}
-      <div className="col-span-6 row-span-1 min-h-0 h-full flex flex-col">
+      <div className="col-span-12 md:col-span-6 md:row-span-1 shrink-0 md:min-h-0 min-h-[320px] md:h-full flex flex-col">
         <SprintActivity
           sprintHistory={effectiveSprints}
           onAdjustCount={(delta) => adjustSprintCount(todayKey, delta)}
@@ -165,12 +165,12 @@ export default function AnalyticsPage() {
       </div>
 
       {/* ── TOP-RIGHT (col-span-6, row-span-1): 7-Day Pillar Health ── */}
-      <div className="col-span-6 row-span-1 min-h-0 h-full flex flex-col">
+      <div className="col-span-12 md:col-span-6 md:row-span-1 shrink-0 md:min-h-0 min-h-[300px] md:h-full flex flex-col">
         <PillarHealth dailyTasks={dailyTasks} />
       </div>
 
       {/* ── BOTTOM-LEFT (col-span-6, row-span-1): Captain's Log Live Daily Editor ── */}
-      <div className="col-span-6 row-span-1 min-h-0 h-full flex flex-col bg-slate-900/90 backdrop-blur-md border border-slate-800 rounded-xl p-3 shadow-sm">
+      <div className="col-span-12 md:col-span-6 md:row-span-1 shrink-0 md:min-h-0 min-h-[320px] md:h-full flex flex-col bg-slate-900/90 backdrop-blur-md border border-slate-800 rounded-xl p-3 shadow-sm">
         <div className="flex items-center justify-between pb-1.5 border-b border-slate-800 shrink-0 gap-2 flex-wrap">
           <div className="flex items-center gap-2">
             <div className="p-1 rounded bg-amber-500/10 text-amber-400">
@@ -209,12 +209,12 @@ export default function AnalyticsPage() {
           value={logText}
           onChange={(e) => setLogText(e.target.value)}
           placeholder="Reflect on today's engineering sprint velocity, obstacles overcome, and architecture learnings…"
-          className="flex-1 min-h-0 w-full bg-slate-950 border border-slate-800 focus:border-amber-500/60 rounded-lg p-2.5 text-xs font-mono text-slate-200 placeholder-slate-600 resize-none focus:outline-none custom-scrollbar mt-2 leading-relaxed"
+          className="flex-1 min-h-[140px] md:min-h-0 w-full bg-slate-950 border border-slate-800 focus:border-amber-500/60 rounded-lg p-2.5 text-xs font-mono text-slate-200 placeholder-slate-600 resize-none focus:outline-none custom-scrollbar mt-2 leading-relaxed"
         />
       </div>
 
       {/* ── BOTTOM-RIGHT (col-span-6, row-span-1): Historical Archive & Backup Controls ── */}
-      <div className="col-span-6 row-span-1 min-h-0 h-full flex flex-col justify-between bg-slate-900/90 backdrop-blur-md border border-slate-800 rounded-xl p-3 shadow-sm">
+      <div className="col-span-12 md:col-span-6 md:row-span-1 shrink-0 md:min-h-0 min-h-[320px] md:h-full flex flex-col justify-between bg-slate-900/90 backdrop-blur-md border border-slate-800 rounded-xl p-3 shadow-sm">
         {/* Header */}
         <div className="flex items-center justify-between pb-1.5 border-b border-slate-800 shrink-0">
           <div className="flex items-center gap-1.5">

@@ -114,7 +114,7 @@ export default function DayModeSwitcher({
       </div>
 
       {/* Target Blocks Row */}
-      <div className={twMerge("grid gap-1.5", cfg.blocks.length === 3 ? "grid-cols-3" : "grid-cols-2")}>
+      <div className={twMerge("grid gap-1.5", cfg.blocks.length === 3 ? "grid-cols-1 sm:grid-cols-3" : "grid-cols-1 sm:grid-cols-2")}>
         {cfg.blocks.map((block, i) => {
           const isCrushed = Boolean(blockChecklist[block.time]);
           const isNowRunning = activeBlockTime === block.time;

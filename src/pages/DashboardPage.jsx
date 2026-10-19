@@ -273,9 +273,9 @@ export default function DashboardPage() {
   const isEODCompletedToday = data.eodStatus?.lastCompletedDate === todayKey;
 
   return (
-    <div className="h-full w-full flex-1 min-h-0 grid grid-cols-12 gap-3 overflow-hidden select-none">
+    <div className="w-full flex-1 min-h-0 flex flex-col md:grid md:grid-cols-12 gap-3 overflow-y-auto md:overflow-hidden select-text md:select-none">
       {/* ── LEFT COLUMN (5 cols): Tab Switcher [ ⏱️ Timer & Ring ] vs [ ✍️ Live Scratchpad & Notes ] + Docked EOD ── */}
-      <div className="col-span-5 flex flex-col gap-2.5 min-h-0 h-full">
+      <div className="col-span-12 md:col-span-5 flex flex-col gap-2.5 shrink-0 md:min-h-0 md:h-full">
         {/* Tab Switcher */}
         <div className="grid grid-cols-2 gap-1.5 p-1 rounded-xl bg-slate-900/90 border border-slate-800/80 shrink-0 shadow-sm">
           <button
@@ -324,7 +324,7 @@ export default function DashboardPage() {
 
         {/* Tab 2: Live Sprint Scratchpad & Terminal Notes (flex-1 min-h-0) */}
         {leftPanelTab === "scratchpad" && (
-          <div className="flex-1 min-h-0 bg-slate-900/90 backdrop-blur-md border border-slate-800/80 rounded-xl p-3 flex flex-col shadow-md">
+          <div className="flex-1 min-h-[260px] md:min-h-0 bg-slate-900/90 backdrop-blur-md border border-slate-800/80 rounded-xl p-3 flex flex-col shadow-md">
             {/* Header */}
             <div className="flex items-center justify-between pb-2 border-b border-slate-800/80 shrink-0">
               <div className="flex items-center gap-1.5">
@@ -416,7 +416,7 @@ export default function DashboardPage() {
       </div>
 
       {/* ── RIGHT COLUMN (7 cols): Active Workflow Protocol + Current Focus & Live Queue ── */}
-      <div className="col-span-7 flex flex-col gap-2.5 min-h-0 h-full">
+      <div className="col-span-12 md:col-span-7 flex flex-col gap-2.5 shrink-0 md:min-h-0 md:h-full">
         {/* 1. Active Workflow Protocol Card */}
         <DayModeSwitcher
           currentMode={data.currentMode}
@@ -434,7 +434,7 @@ export default function DashboardPage() {
         />
 
         {/* 2. Current Focus & Live Today Queue Card */}
-        <div className="flex-1 min-h-0 bg-slate-900/90 backdrop-blur-md border border-slate-800/80 rounded-xl p-3 flex flex-col shadow-md">
+        <div className="flex-1 min-h-[360px] md:min-h-0 bg-slate-900/90 backdrop-blur-md border border-slate-800/80 rounded-xl p-3 flex flex-col shadow-md">
           {/* Top of card: Pinned Active Focus Box */}
           <div className="shrink-0 pb-2.5 border-b border-slate-800/80">
             <div className="flex items-center justify-between mb-1.5">
@@ -483,7 +483,7 @@ export default function DashboardPage() {
                 </span>
               </div>
             ) : (
-              <div className="grid grid-cols-4 gap-1.5">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
                 {[
                   { cat: "internship", label: "⚡ Internship", color: "text-emerald-300 border-emerald-500/30 bg-emerald-500/10" },
                   { cat: "btech", label: "⚡ B.Tech", color: "text-amber-300 border-amber-500/30 bg-amber-500/10" },
@@ -503,32 +503,34 @@ export default function DashboardPage() {
           </div>
 
           {/* Quick inline task adder */}
-          <form onSubmit={handleAddInlineTodayTask} className="flex gap-1.5 py-2 border-b border-slate-800/80 shrink-0">
+          <form onSubmit={handleAddInlineTodayTask} className="flex flex-wrap sm:flex-nowrap gap-1.5 py-2 border-b border-slate-800/80 shrink-0">
             <input
               type="text"
               value={newInlineTaskText}
               onChange={(e) => setNewInlineTaskText(e.target.value)}
               placeholder="Add task to Today's Queue…"
-              className="flex-1 bg-slate-950/90 border border-slate-800 focus:border-cyan-500/60 text-slate-200 placeholder-slate-600 text-xs rounded-lg px-2.5 py-1 focus:outline-none font-mono"
+              className="flex-1 min-w-[160px] bg-slate-950/90 border border-slate-800 focus:border-cyan-500/60 text-slate-200 placeholder-slate-600 text-xs rounded-lg px-2.5 py-1.5 focus:outline-none font-mono"
             />
-            <select
-              value={newInlineTaskCategory}
-              onChange={(e) => setNewInlineTaskCategory(e.target.value)}
-              className="bg-slate-950/90 border border-slate-800 text-slate-300 text-[10px] font-mono rounded-lg px-2 focus:outline-none"
-            >
-              <option value="devops">DevOps</option>
-              <option value="startup">Startup</option>
-              <option value="internship">Internship</option>
-              <option value="btech">B.Tech</option>
-              <option value="general">General</option>
-            </select>
-            <button
-              type="submit"
-              disabled={!newInlineTaskText.trim()}
-              className="px-2.5 py-1 rounded-lg bg-cyan-500 hover:bg-cyan-400 disabled:opacity-30 text-slate-950 text-xs font-mono font-bold transition-all shrink-0"
-            >
-              <Plus size={13} />
-            </button>
+            <div className="flex items-center gap-1.5 w-full sm:w-auto">
+              <select
+                value={newInlineTaskCategory}
+                onChange={(e) => setNewInlineTaskCategory(e.target.value)}
+                className="flex-1 sm:flex-none bg-slate-950/90 border border-slate-800 text-slate-300 text-[10px] font-mono rounded-lg px-2 py-1.5 focus:outline-none"
+              >
+                <option value="devops">DevOps</option>
+                <option value="startup">Startup</option>
+                <option value="internship">Internship</option>
+                <option value="btech">B.Tech</option>
+                <option value="general">General</option>
+              </select>
+              <button
+                type="submit"
+                disabled={!newInlineTaskText.trim()}
+                className="px-3 py-1.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 disabled:opacity-30 text-slate-950 text-xs font-mono font-bold transition-all shrink-0"
+              >
+                <Plus size={13} />
+              </button>
+            </div>
           </form>
 
           {/* Inline Today's Queue / Completed List (Scrollable) */}

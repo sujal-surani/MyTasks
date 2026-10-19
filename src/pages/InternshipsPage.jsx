@@ -334,9 +334,9 @@ export default function InternshipsPage() {
   };
 
   return (
-    <div className="h-full w-full flex-1 min-h-0 grid grid-cols-12 gap-3 overflow-hidden select-none">
+    <div className="w-full flex-1 min-h-0 flex flex-col md:grid md:grid-cols-12 gap-3 overflow-y-auto md:overflow-hidden select-text md:select-none">
       {/* ── COLUMN 1 (5 cols): Alpha Track (7–10 Day Pipeline) ───────────────── */}
-      <div className="col-span-5 flex flex-col justify-between p-3 min-h-0 bg-slate-900/90 backdrop-blur-md border border-slate-800/80 rounded-xl shadow-sm">
+      <div className="col-span-12 md:col-span-5 flex flex-col justify-between p-3 shrink-0 md:min-h-0 min-h-[380px] md:h-full bg-slate-900/90 backdrop-blur-md border border-slate-800/80 rounded-xl shadow-sm">
         {/* Header */}
         <div className="flex items-center justify-between pb-2 border-b border-slate-800 shrink-0">
           <div className="flex items-center gap-2">
@@ -497,7 +497,7 @@ export default function InternshipsPage() {
       </div>
 
       {/* ── COLUMN 2 (3 cols): Beta Track (Daily 10:00 PM Cutoff) ─────────────── */}
-      <div className="col-span-3 flex flex-col justify-between p-3 min-h-0 bg-slate-900/90 backdrop-blur-md border border-slate-800/80 rounded-xl shadow-sm">
+      <div className="col-span-12 md:col-span-3 flex flex-col justify-between p-3 shrink-0 md:min-h-0 min-h-[380px] md:h-full bg-slate-900/90 backdrop-blur-md border border-slate-800/80 rounded-xl shadow-sm">
         {/* Header */}
         <div className="flex items-center justify-between pb-2 border-b border-slate-800 shrink-0">
           <div>
@@ -646,7 +646,7 @@ export default function InternshipsPage() {
       </div>
 
       {/* ── COLUMN 3 (4 cols): Submitted Proof & Deliverables Vault ───────────── */}
-      <div className="col-span-4 flex flex-col p-3 min-h-0 bg-slate-900/90 backdrop-blur-md border border-slate-800/80 rounded-xl shadow-sm">
+      <div className="col-span-12 md:col-span-4 flex flex-col p-3 shrink-0 md:min-h-0 min-h-[340px] md:h-full bg-slate-900/90 backdrop-blur-md border border-slate-800/80 rounded-xl shadow-sm">
         <div className="flex items-center justify-between pb-2 border-b border-slate-800 shrink-0">
           <span className="text-[11px] font-bold font-mono uppercase tracking-wider text-slate-300">
             Deliverables Vault ({filteredVault.length})
