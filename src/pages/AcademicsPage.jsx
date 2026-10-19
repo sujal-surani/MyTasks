@@ -364,7 +364,7 @@ export default function AcademicsPage() {
   };
 
   return (
-    <div className="w-full flex-1 min-h-0 flex flex-col gap-2 overflow-y-auto md:overflow-hidden select-text md:select-none">
+    <div className="w-full flex-1 min-h-0 flex flex-col gap-2 overflow-y-auto md:overflow-hidden select-text md:select-none pb-24 md:pb-0">
       {/* ── Top Alert Strip (Only if exam is within 7 days) ── */}
       {urgentExam && (
         <div className="shrink-0 py-1.5 px-3 bg-amber-950/50 border border-amber-500/40 rounded-xl flex items-center justify-between shadow-sm animate-pulse">

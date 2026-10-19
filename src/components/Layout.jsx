@@ -799,7 +799,7 @@ export default function Layout({ onLock }) {
       </div>
 
       {/* ── Mobile Bottom Navigation Bar (md:hidden) ── */}
-      <nav className="fixed bottom-0 left-0 right-0 h-14 bg-slate-900/95 backdrop-blur-md border-t border-slate-800/90 z-40 grid grid-cols-7 items-center px-1 md:hidden select-none">
+      <nav className="fixed bottom-0 left-0 right-0 h-14 pb-[env(safe-area-inset-bottom,0px)] bg-slate-900/95 backdrop-blur-md border-t border-slate-800/90 z-40 grid grid-cols-7 items-center px-0.5 md:hidden select-none">
         {NAV_ITEMS.map(({ to, icon: Icon, mobileLabel, end }) => (
           <NavLink
             key={to}
@@ -807,15 +807,17 @@ export default function Layout({ onLock }) {
             end={end}
             className={({ isActive }) =>
               twMerge(
-                "flex flex-col items-center justify-center py-1 rounded-lg text-[9px] font-mono transition-all",
+                "flex flex-col items-center justify-center py-1 px-0.5 rounded-lg text-[8.5px] font-mono transition-all min-w-0 w-full overflow-hidden text-center",
                 isActive
-                  ? "text-cyan-400 font-bold bg-cyan-500/10"
+                  ? "text-cyan-400 font-bold bg-cyan-500/15 shadow-sm"
                   : "text-slate-400 hover:text-slate-200"
               )
             }
           >
-            <Icon size={16} />
-            <span className="truncate max-w-[46px] leading-tight mt-0.5">{mobileLabel}</span>
+            <Icon size={15} className="shrink-0" />
+            <span className="truncate w-full text-center leading-none mt-1 block tracking-tight">
+              {mobileLabel}
+            </span>
           </NavLink>
         ))}
       </nav>

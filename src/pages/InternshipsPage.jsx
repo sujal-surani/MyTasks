@@ -334,7 +334,7 @@ export default function InternshipsPage() {
   };
 
   return (
-    <div className="w-full flex-1 min-h-0 flex flex-col md:grid md:grid-cols-12 gap-3 overflow-y-auto md:overflow-hidden select-text md:select-none">
+    <div className="w-full flex-1 min-h-0 flex flex-col md:grid md:grid-cols-12 gap-3 overflow-y-auto md:overflow-hidden select-text md:select-none pb-24 md:pb-0">
       {/* ── COLUMN 1 (5 cols): Alpha Track (7–10 Day Pipeline) ───────────────── */}
       <div className="col-span-12 md:col-span-5 flex flex-col justify-between p-3 shrink-0 md:min-h-0 min-h-[380px] md:h-full bg-slate-900/90 backdrop-blur-md border border-slate-800/80 rounded-xl shadow-sm">
         {/* Header */}

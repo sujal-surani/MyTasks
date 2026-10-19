@@ -617,22 +617,22 @@ export default function ProjectsGrid({ activeProjects = [], onUpdate, onPushToTo
   };
 
   return (
-    <div className="flex-1 min-h-0 flex flex-col gap-2 overflow-hidden">
+    <div className="flex-1 min-h-0 flex flex-col gap-2 overflow-visible md:overflow-hidden pb-6 md:pb-0">
       {/* Header with Blueprint Dropdown & New Project */}
-      <div className="flex items-center justify-between flex-wrap gap-2 shrink-0">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 shrink-0">
         <div className="flex items-center gap-2">
           <div className="w-1 h-4 rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.5)]" />
-          <h2 className="text-xs font-black font-mono uppercase tracking-widest text-slate-300">
-            Active Portfolio & R&D Projects
+          <h2 className="text-xs font-black font-mono uppercase tracking-widest text-slate-300 truncate">
+            Active Portfolio & R&D
           </h2>
           {activeProjects.length > 0 && (
             <span className="text-[10px] font-mono text-slate-500">
-              ({activeProjects.length} tracked)
+              ({activeProjects.length})
             </span>
           )}
         </div>
 
-        <div className="flex items-center gap-2 relative">
+        <div className="flex items-center gap-2 relative w-full sm:w-auto justify-between sm:justify-end">
           {/* Load Blueprint Dropdown */}
           <div className="relative">
             <button

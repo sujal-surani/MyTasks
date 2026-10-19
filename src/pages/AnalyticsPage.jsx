@@ -155,7 +155,7 @@ export default function AnalyticsPage() {
   };
 
   return (
-    <div className="w-full flex-1 min-h-0 flex flex-col md:grid md:grid-cols-12 md:grid-rows-2 gap-3 overflow-y-auto md:overflow-hidden select-text md:select-none">
+    <div className="w-full flex-1 min-h-0 flex flex-col md:grid md:grid-cols-12 md:grid-rows-2 gap-3 overflow-y-auto md:overflow-hidden select-text md:select-none pb-24 md:pb-0">
       {/* ── TOP-LEFT (col-span-6, row-span-1): Sprint Activity Heatmap ── */}
       <div className="col-span-12 md:col-span-6 md:row-span-1 shrink-0 md:min-h-0 min-h-[320px] md:h-full flex flex-col">
         <SprintActivity

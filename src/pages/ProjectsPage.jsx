@@ -227,37 +227,43 @@ export default function ProjectsPage() {
   const agendaList = Array.isArray(startupState.agenda) ? startupState.agenda : [];
 
   return (
-    <div className="w-full flex-1 min-h-0 flex flex-col gap-2 overflow-y-auto md:overflow-hidden select-text md:select-none">
+    <div className="w-full flex-1 min-h-0 flex flex-col gap-2 overflow-y-auto md:overflow-hidden select-text md:select-none pb-24 md:pb-0">
       {/* ── Top Tab Switcher ── */}
-      <div className="h-9 shrink-0 flex items-center justify-between bg-slate-900/90 border border-slate-800 rounded-xl px-2.5 shadow-sm">
-        <div className="flex items-center gap-1.5">
+      <div className="shrink-0 flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 bg-slate-900/90 border border-slate-800 rounded-xl p-1 md:px-2.5 md:h-9 shadow-sm">
+        <div className="grid grid-cols-2 gap-1.5 sm:flex sm:items-center sm:gap-1.5 w-full sm:w-auto">
           <button
             onClick={() => setActiveTab("portfolio")}
             className={twMerge(
-              "px-3 py-1 rounded-lg text-xs font-mono font-bold flex items-center gap-1.5 transition-all",
+              "px-2.5 py-1.5 md:py-1 rounded-lg text-xs font-mono font-bold flex items-center justify-center gap-1.5 transition-all text-center",
               activeTab === "portfolio"
                 ? "bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-sm"
                 : "text-slate-400 hover:text-white"
             )}
           >
-            <FolderKanban size={13} />
-            <span>Cloud & DevOps Portfolio</span>
+            <FolderKanban size={13} className="shrink-0" />
+            <span className="truncate">
+              <span className="inline sm:hidden">DevOps</span>
+              <span className="hidden sm:inline">Cloud & DevOps Portfolio</span>
+            </span>
           </button>
           <button
             onClick={() => setActiveTab("startup")}
             className={twMerge(
-              "px-3 py-1 rounded-lg text-xs font-mono font-bold flex items-center gap-1.5 transition-all",
+              "px-2.5 py-1.5 md:py-1 rounded-lg text-xs font-mono font-bold flex items-center justify-center gap-1.5 transition-all text-center",
               activeTab === "startup"
                 ? "bg-violet-500/20 text-violet-300 border border-violet-500/40 shadow-sm"
                 : "text-slate-400 hover:text-white"
             )}
           >
-            <Cpu size={13} />
-            <span>Deep-Tech Startup R&D</span>
+            <Cpu size={13} className="shrink-0" />
+            <span className="truncate">
+              <span className="inline sm:hidden">Startup R&D</span>
+              <span className="hidden sm:inline">Deep-Tech Startup R&D</span>
+            </span>
           </button>
         </div>
 
-        <span className="text-[10px] font-mono text-slate-500">
+        <span className="text-[10px] font-mono text-slate-500 hidden md:inline">
           {activeTab === "portfolio" ? "IaC Blueprints & Portfolio Tracking" : "Kernel, GPU & Co-founder Sync Hub"}
         </span>
       </div>
@@ -271,21 +277,21 @@ export default function ProjectsPage() {
         />
       ) : (
         /* ── Deep-Tech Startup R&D View (Zero-Scroll 12-col grid) ── */
-        <div className="flex-1 min-h-0 flex flex-col gap-2 overflow-y-auto md:overflow-hidden">
+        <div className="flex-1 min-h-0 flex flex-col gap-2 pb-6 md:pb-0">
           {/* Top Banner (Compact) */}
-          <div className="shrink-0 py-1.5 px-3 bg-gradient-to-r from-violet-950/40 via-slate-900 to-slate-900 border border-violet-500/30 rounded-xl flex items-center justify-between shadow-sm">
-            <div className="flex items-center gap-2">
-              <div className="p-1 rounded bg-violet-500/20 text-violet-300">
+          <div className="shrink-0 py-2 px-3 bg-gradient-to-r from-violet-950/40 via-slate-900 to-slate-900 border border-violet-500/30 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-sm">
+            <div className="flex items-center gap-2 min-w-0">
+              <div className="p-1 rounded bg-violet-500/20 text-violet-300 shrink-0">
                 <Cpu size={13} />
               </div>
-              <span className="text-xs font-bold font-mono text-white">
-                Deep-Tech Startup R&D (Kernel, GPU & High-Throughput IPC)
+              <span className="text-xs font-bold font-mono text-white truncate">
+                Deep-Tech Startup R&D <span className="hidden sm:inline">(Kernel, GPU & High-Throughput IPC)</span>
               </span>
             </div>
 
             <button
               onClick={handleStartStartupSprint}
-              className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-violet-500 hover:bg-violet-400 text-slate-950 text-xs font-mono font-bold shadow-sm transition-all"
+              className="w-full sm:w-auto flex items-center justify-center gap-1 px-2.5 py-1 rounded-lg bg-violet-500 hover:bg-violet-400 text-slate-950 text-xs font-mono font-bold shadow-sm transition-all shrink-0"
             >
               <Play size={10} fill="currentColor" />
               <span>Start Startup Sprint</span>

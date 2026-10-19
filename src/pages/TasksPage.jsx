@@ -220,7 +220,7 @@ export default function TasksPage() {
     : QUICK_QUEUE_PILLARS;
 
   return (
-    <div className="w-full flex-1 min-h-0 flex flex-col md:grid md:grid-cols-12 gap-3 overflow-y-auto md:overflow-hidden select-text md:select-none">
+    <div className="w-full flex-1 min-h-0 flex flex-col md:grid md:grid-cols-12 gap-3 overflow-y-auto md:overflow-hidden select-text md:select-none pb-24 md:pb-0">
       {/* ── LEFT 8 COLUMNS: Engineering Sprint Engine ────────────────────────── */}
       <div className="col-span-12 md:col-span-8 flex flex-col gap-2 shrink-0 md:min-h-0 md:h-full">
         {/* Compact Combined Header Bar */}

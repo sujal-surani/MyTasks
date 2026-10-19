@@ -273,7 +273,7 @@ export default function DashboardPage() {
   const isEODCompletedToday = data.eodStatus?.lastCompletedDate === todayKey;
 
   return (
-    <div className="w-full flex-1 min-h-0 flex flex-col md:grid md:grid-cols-12 gap-3 overflow-y-auto md:overflow-hidden select-text md:select-none">
+    <div className="w-full flex-1 min-h-0 flex flex-col md:grid md:grid-cols-12 gap-3 overflow-y-auto md:overflow-hidden select-text md:select-none pb-24 md:pb-0">
       {/* ── LEFT COLUMN (5 cols): Tab Switcher [ ⏱️ Timer & Ring ] vs [ ✍️ Live Scratchpad & Notes ] + Docked EOD ── */}
       <div className="col-span-12 md:col-span-5 flex flex-col gap-2.5 shrink-0 md:min-h-0 md:h-full">
         {/* Tab Switcher */}
